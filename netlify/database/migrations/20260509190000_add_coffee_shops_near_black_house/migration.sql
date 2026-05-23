@@ -1,0 +1,7 @@
+-- Seed coffee shops near the Black House (2104 NW Everett St, Portland, OR 97210)
+INSERT INTO places (name, category, address, note, distance, guide_note, url, sort_order) VALUES
+('Sterling Coffee Roasters', 'coffee', '518 NW 21st Ave', 'Upscale micro-roastery with a sleek, New York–inspired vibe — hand-roasted single-origin beans and expertly pulled espresso', '0.1 mi from Black House', 'Open weekdays 6:30am, weekends 7:30am', 'https://www.sterling.coffee', 1),
+('Coffee Time', 'coffee', '712 NW 21st Ave', 'Portland landmark since the 1980s — locally roasted coffee, breakfast sandwiches, pastries, and a cozy, art-filled interior with free Wi-Fi', '0.2 mi from Black House', 'Great for working or hanging out — plenty of tables', 'https://www.coffeetimepdx.com', 2),
+('Barista', 'coffee', '823 NW 23rd Ave', 'Carefully crafted espresso drinks in a relaxed Nob Hill setting — right on Portland''s best shopping street', '0.3 mi from Black House', 'Also serves wine in the evenings', 'https://baristapdx.com', 3),
+('Case Study Coffee Roasters', 'coffee', '1400 NW 23rd Ave', 'Specialty roaster housed in a converted 1800s Victorian home — South American blends, matcha, and pastries in a charming setting', '0.4 mi from Black House', 'Card only · Open 7am–4pm', 'https://www.casestudycoffee.com', 4),
+('Good Coffee', 'coffee', '2175 NW Raleigh St #106', 'Community-focused Scandinavian-inspired roaster — clean, minimal space with exceptional seasonal single-origin coffees', '0.5 mi from Black House', 'Open weekdays 7am, weekends 8am', 'https://goodwith.us', 5);

@@ -1,0 +1,2109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Craig Family Reunion · Portland 2026</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --forest: #2D4A3E;
+    --moss: #4A7C59;
+    --sage: #8FB5A0;
+    --cream: #F5F0E8;
+    --amber: #D4820A;
+    --gold: #F0A500;
+    --bark: #6B4A2A;
+    --mist: #E8EDE9;
+    --rose: #C97B5A;
+  }
+
+  body {
+    font-family: Georgia, 'Times New Roman', serif;
+    background: var(--cream);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+  }
+
+  #app {
+    width: 100%;
+    max-width: 480px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--cream);
+  }
+
+  /* HEADER */
+  header {
+    background: var(--forest);
+    color: var(--cream);
+    padding: 18px 18px 12px;
+    border-bottom: 4px solid var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  header .tree { font-size: 30px; }
+  header .header-text { flex: 1; }
+  header h1 { font-size: 20px; font-weight: bold; letter-spacing: 0.02em; }
+  header p { font-size: 13px; color: var(--sage); font-style: italic; margin-top: 3px; }
+  .welcome-icon-btn {
+    background: none;
+    border: 1.5px solid var(--sage);
+    border-radius: 8px;
+    color: var(--cream);
+    font-size: 9px;
+    font-family: sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 6px 10px;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    transition: border-color 0.2s, color 0.2s;
+    flex-shrink: 0;
+  }
+  .welcome-icon-btn .welcome-icon-emoji { font-size: 18px; }
+  .welcome-icon-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+  }
+
+  /* TAB BAR */
+  nav {
+    background: var(--forest);
+    border-bottom: 3px solid var(--gold);
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  nav::-webkit-scrollbar { display: none; }
+  nav button {
+    flex: 1 0 auto;
+    min-width: 60px;
+    padding: 9px 6px 7px;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: var(--sage);
+    font-size: 9px;
+    font-family: sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: color 0.2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+  }
+  nav button .icon { font-size: 17px; }
+  nav button.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* CONTENT */
+  main { padding: 16px; padding-bottom: 40px; flex: 1; }
+
+  .section-label {
+    font-size: 11px;
+    font-family: sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--moss);
+    margin-bottom: 12px;
+  }
+
+  .card {
+    background: #fff;
+    border-radius: 10px;
+    border: 2px solid var(--forest);
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    box-shadow: 0 2px 8px rgba(45,74,62,0.08);
+  }
+  .card-title { font-size: 16px; font-weight: bold; color: var(--forest); margin-bottom: 4px; padding-right: 24px; }
+  .card-sub { font-size: 13px; color: #666; font-family: sans-serif; margin-bottom: 4px; }
+  .card-note { font-size: 12px; color: #555; font-style: italic; }
+
+  .badge {
+    display: inline-block;
+    background: var(--forest);
+    color: #fff;
+    border-radius: 4px;
+    padding: 2px 9px;
+    font-size: 11px;
+    font-family: sans-serif;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .map-btn {
+    display: inline-block;
+    background: var(--amber);
+    color: #fff;
+    border-radius: 6px;
+    padding: 5px 14px;
+    font-size: 12px;
+    font-family: sans-serif;
+    font-weight: 600;
+    text-decoration: none;
+    margin-top: 6px;
+  }
+
+  /* FAMILY */
+  .branch-header {
+    background: var(--forest);
+    color: var(--cream);
+    border-radius: 8px;
+    padding: 8px 14px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .member-card {
+    background: #fff;
+    border-radius: 10px;
+    border: 2px solid var(--forest);
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    box-shadow: 0 2px 6px rgba(45,74,62,0.07);
+  }
+  .member-name { font-weight: bold; color: var(--forest); font-size: 14px; }
+  .member-role { font-size: 11px; color: var(--rose); font-family: sans-serif; font-weight: 600; }
+  .member-house { font-size: 12px; color: #777; font-family: sans-serif; margin-top: 3px; }
+  .member-dates { text-align: right; font-size: 11px; color: #888; font-family: sans-serif; line-height: 1.7; }
+
+  /* SCHEDULE */
+  .day-header {
+    background: var(--forest);
+    color: var(--cream);
+    border-radius: 8px;
+    padding: 8px 14px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  .event-row {
+    border-left: 3px solid var(--gold);
+    padding-left: 12px;
+    padding-right: 28px;
+    margin-bottom: 14px;
+    position: relative;
+  }
+  .event-time { font-size: 12px; color: var(--amber); font-family: sans-serif; font-weight: 700; }
+  .event-title { font-size: 15px; font-weight: bold; color: var(--forest); margin: 2px 0; }
+  .event-location { font-size: 12px; color: var(--moss); font-family: sans-serif; margin-bottom: 2px; }
+  .event-note { font-size: 12px; color: #666; font-style: italic; }
+
+  /* GUIDE */
+  .filter-bar { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+  .filter-btn {
+    padding: 6px 14px;
+    border-radius: 20px;
+    border: 2px solid var(--sage);
+    background: #fff;
+    color: var(--forest);
+    font-size: 13px;
+    font-family: sans-serif;
+    cursor: pointer;
+    font-weight: 400;
+    transition: all 0.15s;
+  }
+  .filter-btn.active {
+    background: var(--forest);
+    color: #fff;
+    border-color: var(--forest);
+    font-weight: 700;
+  }
+  .diff-bar { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
+  .diff-btn {
+    padding: 4px 10px;
+    border-radius: 12px;
+    border: 1px solid var(--sage);
+    background: transparent;
+    color: var(--forest);
+    font-size: 11px;
+    font-family: sans-serif;
+    cursor: pointer;
+  }
+  .diff-btn.active { background: var(--forest); color: #fff; border-color: var(--forest); }
+
+  .cuisine-filter-wrap { margin-bottom: 14px; }
+  .cuisine-filter-bar {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+  }
+  .cuisine-filter-bar::-webkit-scrollbar { display: none; }
+  .cuisine-btn {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    padding: 8px 10px 6px;
+    border-radius: 10px;
+    border: 2px solid var(--sage);
+    background: #fff;
+    cursor: pointer;
+    transition: all 0.15s;
+    min-width: 56px;
+  }
+  .cuisine-icon { font-size: 22px; line-height: 1; }
+  .cuisine-label {
+    font-size: 9px;
+    font-family: sans-serif;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: var(--forest);
+    white-space: nowrap;
+  }
+  .cuisine-btn.active {
+    background: var(--forest);
+    border-color: var(--forest);
+  }
+  .cuisine-btn.active .cuisine-label { color: #fff; }
+
+  .hike-meta { font-size: 13px; color: var(--moss); font-family: sans-serif; margin-bottom: 4px; }
+  .hike-badge { font-size: 11px; font-family: sans-serif; font-weight: 600; padding: 2px 9px; border-radius: 4px; color: #fff; }
+  .hike-row { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 4px; }
+
+  .guide-note { font-size: 12px; color: var(--amber); font-family: sans-serif; font-weight: 600; margin-top: 4px; }
+
+  /* SEARCH */
+  .search-wrap {
+    position: relative;
+    margin-bottom: 12px;
+  }
+  .search-icon {
+    position: absolute;
+    left: 10px; top: 50%;
+    transform: translateY(-50%);
+    font-size: 15px;
+    pointer-events: none;
+  }
+  #guide-search {
+    width: 100%;
+    padding: 10px 36px 10px 34px;
+    border-radius: 10px;
+    border: 2px solid var(--sage);
+    font-family: Georgia, serif;
+    font-size: 14px;
+    background: #fff;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  #guide-search:focus { border-color: var(--forest); }
+  #places-input {
+    width: 100%;
+    padding: 10px 36px 10px 12px;
+    border-radius: 10px;
+    border: 2px solid var(--sage);
+    font-family: Georgia, serif;
+    font-size: 14px;
+    background: #fff;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  #places-input:focus { border-color: var(--forest); }
+  .search-clear {
+    position: absolute;
+    right: 10px; top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: #aaa;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+  }
+  .search-clear:hover { color: var(--forest); }
+  .search-category-label {
+    font-size: 10px;
+    font-family: sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #fff;
+    background: var(--moss);
+    border-radius: 3px;
+    padding: 1px 7px;
+    margin-bottom: 6px;
+    display: inline-block;
+  }
+  .no-results {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+    font-size: 14px;
+    padding: 24px 0;
+  }
+  .card-btns {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .card-btn-web, .card-btn-map {
+    flex: 1;
+    display: block;
+    text-align: center;
+    padding: 7px 6px;
+    border-radius: 7px;
+    font-size: 12px;
+    font-family: sans-serif;
+    font-weight: 600;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+  .card-btn-web:active, .card-btn-map:active { opacity: 0.7; }
+  .card-btn-web {
+    background: var(--forest);
+    color: #fff;
+  }
+  .card-btn-map {
+    background: var(--amber);
+    color: #fff;
+  }
+
+  /* WELCOME MODAL */
+  .welcome-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 40px 16px;
+  }
+  .welcome-overlay.open {
+    display: flex;
+  }
+  .welcome-modal {
+    background: var(--cream);
+    border-radius: 14px;
+    width: 100%;
+    max-width: 480px;
+    max-height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+    overflow: hidden;
+  }
+  .welcome-modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 18px 10px;
+    border-bottom: 2px solid var(--gold);
+    background: var(--forest);
+    color: var(--cream);
+  }
+  .welcome-modal-header h2 {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  .welcome-modal-close {
+    background: none;
+    border: none;
+    color: var(--sage);
+    font-size: 22px;
+    cursor: pointer;
+    padding: 0 4px;
+    line-height: 1;
+  }
+  .welcome-modal-close:hover { color: var(--cream); }
+  .welcome-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px 18px;
+  }
+  .welcome-editor {
+    width: 100%;
+    min-height: 200px;
+    background: #fff;
+    border: 2px solid var(--forest);
+    border-radius: 10px;
+    padding: 14px 16px;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 15px;
+    color: #333;
+    line-height: 1.5;
+    box-shadow: 0 2px 8px rgba(45,74,62,0.08);
+    outline: none;
+    cursor: text;
+  }
+  .welcome-editor:focus {
+    border-color: var(--moss);
+    box-shadow: 0 0 0 3px rgba(74,124,89,0.15);
+  }
+  .welcome-editor:empty::before {
+    content: "Paste or type a welcome message here\2026";
+    color: #aaa;
+    font-style: italic;
+  }
+  .welcome-save-status {
+    font-size: 11px;
+    font-family: sans-serif;
+    color: var(--moss);
+    margin-top: 6px;
+    min-height: 16px;
+    text-align: right;
+  }
+
+  /* FEED */
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+  .branch-group { margin-bottom: 20px; }
+  .day-group { margin-bottom: 20px; }
+
+  /* ADD EVENT */
+  .add-event-toggle {
+    width: 100%;
+    background: transparent;
+    border: 2px dashed var(--sage);
+    border-radius: 10px;
+    padding: 11px;
+    color: var(--moss);
+    font-size: 14px;
+    font-family: Georgia, serif;
+    cursor: pointer;
+    margin-bottom: 16px;
+    transition: all 0.2s;
+  }
+  .add-event-toggle:hover { border-color: var(--forest); color: var(--forest); background: #fff; }
+  .add-event-form {
+    background: #fff;
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    padding: 14px 16px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 10px rgba(45,74,62,0.10);
+  }
+  .add-event-form label {
+    display: block;
+    font-size: 11px;
+    font-family: sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: var(--moss);
+    margin-bottom: 4px;
+    margin-top: 10px;
+  }
+  .add-event-form label:first-of-type { margin-top: 0; }
+  .add-event-form input,
+  .add-event-form select {
+    width: 100%;
+    padding: 8px 10px;
+    border-radius: 7px;
+    border: 1.5px solid var(--sage);
+    font-family: Georgia, serif;
+    font-size: 14px;
+    background: var(--cream);
+    outline: none;
+    color: #333;
+  }
+  .add-event-form input:focus,
+  .add-event-form select:focus { border-color: var(--forest); }
+  .form-row { display: flex; gap: 8px; }
+  .form-row > div { flex: 1; }
+  .add-event-submit {
+    width: 100%;
+    margin-top: 12px;
+    background: var(--forest);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    font-size: 14px;
+    font-family: sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .event-row.user-added { border-left-color: var(--rose); }
+  .user-tag {
+    display: inline-block;
+    font-size: 10px;
+    font-family: sans-serif;
+    font-weight: 600;
+    color: var(--rose);
+    background: #fdf0ea;
+    border-radius: 3px;
+    padding: 1px 6px;
+    margin-left: 6px;
+    vertical-align: middle;
+  }
+  .event-row.user-added { border-left-color: var(--rose); }
+  .delete-btn {
+    position: absolute;
+    top: 0; right: 0;
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 15px;
+    cursor: pointer;
+    padding: 0 2px;
+    line-height: 1;
+    transition: color 0.2s;
+  }
+  .delete-btn:hover { color: #c0392b; }
+  .delete-confirm {
+    position: absolute;
+    top: -2px; right: 0;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: #fff3f3;
+    border: 1px solid #f5c6c6;
+    border-radius: 6px;
+    padding: 3px 7px;
+    font-size: 11px;
+    font-family: sans-serif;
+    z-index: 10;
+  }
+  .delete-confirm span { color: #c0392b; font-weight: 600; }
+  .delete-confirm button {
+    border: none; cursor: pointer;
+    font-size: 11px; font-family: sans-serif; font-weight: 700;
+    padding: 2px 6px; border-radius: 4px;
+  }
+  .delete-yes { background: #c0392b; color: #fff; }
+  .delete-no  { background: #ddd; color: #333; }
+
+  /* PLACES SEARCH */
+  .places-search-box {
+    background: #fff;
+    border: 2px solid var(--gold);
+    border-radius: 12px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 10px rgba(45,74,62,0.08);
+  }
+  .places-search-row { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+  .places-search-btn {
+    background: var(--forest); color: #fff; border: none;
+    border-radius: 8px; padding: 10px 14px;
+    font-size: 13px; font-family: sans-serif; font-weight: 700;
+    cursor: pointer; white-space: nowrap;
+  }
+  .places-cat-select {
+    width: 100%; padding: 8px 10px; border-radius: 7px;
+    border: 1.5px solid var(--sage); font-family: Georgia, serif;
+    font-size: 13px; background: var(--cream); color: #333; outline: none;
+  }
+  .places-cat-input {
+    width: 100%; padding: 9px 12px; border-radius: 7px;
+    border: 1.5px solid var(--sage); font-family: Georgia, serif;
+    font-size: 14px; background: #fff; color: #333;
+    outline: none; display: block;
+  }
+  .places-cat-input:focus { border-color: var(--forest); }
+  .places-loading, .places-no-results {
+    text-align: center; font-style: italic; color: #999;
+    font-size: 13px; padding: 14px 0 6px; font-family: sans-serif;
+  }
+  .places-result-card {
+    background: var(--mist); border-radius: 8px;
+    padding: 10px 12px; margin-top: 8px;
+  }
+  .places-result-name { font-weight: bold; color: var(--forest); font-size: 14px; margin-bottom: 2px; }
+  .places-result-addr { font-size: 12px; color: #666; font-family: sans-serif; margin-bottom: 3px; }
+  .places-result-rating { font-size: 12px; color: var(--amber); font-family: sans-serif; margin-bottom: 6px; }
+  .places-result-btns { display: flex; gap: 8px; }
+
+  .places-dropdown {
+    position: absolute;
+    top: 100%; left: 0; right: 0;
+    background: #fff;
+    border: 1.5px solid var(--sage);
+    border-radius: 8px;
+    box-shadow: 0 4px 16px rgba(45,74,62,0.15);
+    z-index: 100;
+    max-height: 220px;
+    overflow-y: auto;
+  }
+  .places-dropdown-item {
+    padding: 10px 14px;
+    font-size: 13px;
+    font-family: sans-serif;
+    color: var(--forest);
+    border-bottom: 1px solid var(--mist);
+    cursor: pointer;
+    line-height: 1.4;
+  }
+  .places-dropdown-item:last-child { border-bottom: none; }
+  .places-dropdown-item:active { background: var(--mist); }
+
+  /* TIPS & INFO */
+  .tips-add-box {
+    background: #fff;
+    border: 2px solid var(--gold);
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 14px;
+    box-shadow: 0 2px 8px rgba(45,74,62,0.07);
+  }
+  .tips-add-label {
+    font-size: 11px;
+    font-family: sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--moss);
+    margin-bottom: 8px;
+  }
+  .tips-add-cat-btn {
+    width: 100%;
+    margin-top: 8px;
+    background: var(--forest);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 9px;
+    font-size: 13px;
+    font-family: sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+  }
+  .tips-block {
+    background: #fff;
+    border-radius: 10px;
+    border: 2px solid var(--forest);
+    margin-bottom: 14px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(45,74,62,0.07);
+  }
+  .tips-block-header {
+    background: var(--forest);
+    color: var(--cream);
+    padding: 10px 14px;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .tips-del-cat-btn {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.5);
+    font-size: 20px;
+    cursor: pointer;
+    line-height: 1;
+    padding: 0;
+    transition: color 0.2s;
+  }
+  .tips-del-cat-btn:hover { color: #fff; }
+  .tips-list {
+    list-style: none;
+    padding: 6px 0;
+    margin: 0;
+  }
+  .tips-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 8px 14px;
+    border-bottom: 1px solid var(--mist);
+    gap: 8px;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #333;
+  }
+  .tips-item:last-child { border-bottom: none; }
+  .tips-item span { flex: 1; }
+  .tips-del-item {
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    flex-shrink: 0;
+    transition: color 0.2s;
+  }
+  .tips-del-item:hover { color: #c0392b; }
+  .tips-add-item-row {
+    display: flex;
+    gap: 8px;
+    padding: 10px 14px;
+    border-top: 1px solid var(--mist);
+    background: var(--mist);
+  }
+  .tips-item-input {
+    flex: 1;
+    padding: 7px 10px;
+    border-radius: 7px;
+    border: 1.5px solid var(--sage);
+    font-family: Georgia, serif;
+    font-size: 13px;
+    background: #fff;
+    outline: none;
+  }
+  .tips-item-input:focus { border-color: var(--forest); }
+  .tips-add-item-btn {
+    background: var(--moss);
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 7px 14px;
+    font-size: 18px;
+    cursor: pointer;
+    font-weight: bold;
+    line-height: 1;
+  }
+  .guide-del-btn {
+    position: absolute; top: 8px; right: 10px;
+    background: none; border: none; color: #ccc;
+    font-size: 18px; cursor: pointer; line-height: 1;
+    padding: 0; transition: color 0.2s;
+  }
+  .guide-del-btn:hover { color: #c0392b; }
+  .guide-del-confirm {
+    position: absolute; top: 6px; right: 8px;
+    display: flex; align-items: center; gap: 5px;
+    background: #fff3f3; border: 1px solid #f5c6c6;
+    border-radius: 6px; padding: 3px 7px;
+    font-size: 11px; font-family: sans-serif; z-index: 10;
+  }
+  .guide-del-confirm span { color: #c0392b; font-weight: 600; }
+
+  /* HOUSE META — wifi, door code */
+  .house-meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 6px;
+  }
+  .house-meta-item {
+    font-size: 12px;
+    font-family: sans-serif;
+    color: #666;
+    background: var(--mist);
+    border-radius: 5px;
+    padding: 3px 8px;
+  }
+
+  /* FAMILY GROUPS */
+  .family-group { border-top: 1px solid var(--mist); }
+  .family-group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 14px;
+    background: #f9fbf9;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--forest);
+    font-family: sans-serif;
+    user-select: none;
+  }
+  .family-group-header:hover { background: var(--mist); }
+  .family-toggle-icon { font-size: 12px; color: var(--sage); }
+  .family-members { display: block; }
+  .family-members.collapsed { display: none; }
+
+  /* ADD GUEST */
+  .add-guest-row {
+    border-top: 1px solid var(--mist);
+    background: #f9fbf9;
+    padding: 10px 14px;
+  }
+  .add-guest-toggle {
+    width: 100%;
+    background: transparent;
+    border: 2px dashed var(--sage);
+    border-radius: 8px;
+    padding: 8px;
+    color: var(--moss);
+    font-size: 13px;
+    font-family: sans-serif;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .add-guest-toggle:hover { border-color: var(--forest); color: var(--forest); }
+  .add-guest-form { margin-top: 10px; }
+  .add-guest-submit {
+    width: 100%;
+    margin-top: 8px;
+    background: var(--forest);
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    padding: 9px;
+    font-size: 13px;
+    font-family: sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+  }
+
+  /* DELETE BUTTONS — houses & guests */
+  .house-del-btn {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    background: none;
+    border: 1.5px solid #f5c6c6;
+    border-radius: 7px;
+    padding: 7px;
+    color: #c0392b;
+    font-size: 12px;
+    font-family: sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .house-del-btn:hover { background: #fff3f3; }
+
+  .guest-del-btn {
+    background: none;
+    border: none;
+    color: #ccc;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 0 0 0 8px;
+    line-height: 1;
+    flex-shrink: 0;
+    transition: color 0.2s;
+    align-self: center;
+  }
+  .guest-del-btn:hover { color: #c0392b; }
+
+  .family-del-btn {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.4);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    margin-left: 8px;
+    transition: color 0.2s;
+    flex-shrink: 0;
+  }
+  .family-del-btn:hover { color: #fff; }
+
+  /* DISTANCE TAG on Portland cards */
+  .distance-tag {
+    display: inline-block;
+    font-size: 11px;
+    font-family: sans-serif;
+    color: var(--moss);
+    background: #edf5f0;
+    border-radius: 4px;
+    padding: 2px 7px;
+    margin-top: 4px;
+    font-weight: 600;
+  }
+  .house-block {
+    margin-bottom: 20px;
+    border-radius: 12px;
+    border: 2px solid var(--hcolor, var(--forest));
+    overflow: hidden;
+    box-shadow: 0 2px 10px rgba(45,74,62,0.09);
+  }
+  .house-card {
+    background: #fff;
+    padding: 14px 16px 14px;
+    border-bottom: 1px solid var(--mist);
+  }
+  .house-card-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .house-emoji { font-size: 28px; }
+  .house-info { flex: 1; }
+  .house-name {
+    font-size: 17px;
+    font-weight: bold;
+    color: var(--hcolor, var(--forest));
+    margin-bottom: 4px;
+  }
+  .house-guests-label {
+    background: var(--hcolor, var(--forest));
+    color: rgba(255,255,255,0.75);
+    font-size: 10px;
+    font-family: sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 5px 16px;
+  }
+  .house-guest {
+    background: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 9px 16px;
+    border-top: 1px solid var(--mist);
+    gap: 6px;
+  }
+  .house-guest:first-of-type { border-top: none; }
+  .hg-name { font-size: 14px; font-weight: bold; color: var(--forest); }
+  .hg-role { font-size: 11px; color: var(--rose); font-family: sans-serif; font-weight: 600; margin-top: 1px; }
+  .hg-dates {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+    font-size: 11px;
+    color: #999;
+    font-family: sans-serif;
+  }
+
+  /* TRAVELS */
+  .travels-section-header {
+    background: var(--forest);
+    color: var(--cream);
+    border-radius: 8px;
+    padding: 8px 14px;
+    margin-bottom: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .travels-filter-bar { display: flex; gap: 8px; margin-bottom: 14px; }
+  .travels-filter-btn {
+    flex: 1;
+    padding: 8px 6px;
+    border-radius: 20px;
+    border: 2px solid var(--sage);
+    background: #fff;
+    color: var(--forest);
+    font-size: 13px;
+    font-family: sans-serif;
+    cursor: pointer;
+    font-weight: 400;
+    transition: all 0.15s;
+    text-align: center;
+  }
+  .travels-filter-btn.active {
+    background: var(--forest);
+    color: #fff;
+    border-color: var(--forest);
+    font-weight: 700;
+  }
+  .travel-card {
+    background: #fff;
+    border-radius: 10px;
+    border: 2px solid var(--forest);
+    padding: 12px 16px;
+    margin-bottom: 10px;
+    box-shadow: 0 2px 8px rgba(45,74,62,0.08);
+    position: relative;
+  }
+  .travel-card-name { font-size: 15px; font-weight: bold; color: var(--forest); margin-bottom: 4px; padding-right: 24px; }
+  .travel-card-detail { font-size: 12px; color: #666; font-family: sans-serif; margin-bottom: 2px; }
+  .travel-card-detail strong { color: var(--forest); }
+  .travel-card-note { font-size: 12px; color: #555; font-style: italic; margin-top: 4px; }
+  .travel-del-btn {
+    position: absolute; top: 10px; right: 10px;
+    background: none; border: none; color: #ccc;
+    font-size: 18px; cursor: pointer; line-height: 1;
+    padding: 0; transition: color 0.2s;
+  }
+  .travel-del-btn:hover { color: #c0392b; }
+  .travel-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-family: sans-serif;
+    font-weight: 600;
+    border-radius: 4px;
+    padding: 2px 8px;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+  .carpool-seats {
+    display: inline-block;
+    font-size: 11px;
+    font-family: sans-serif;
+    font-weight: 600;
+    color: var(--moss);
+    background: #edf5f0;
+    border-radius: 4px;
+    padding: 2px 8px;
+    margin-top: 4px;
+  }
+  .travel-empty {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+    font-size: 14px;
+    padding: 20px 0 10px;
+  }
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="tree">🌲</div>
+    <div class="header-text">
+      <h1>Craig Family Reunion</h1>
+      <p>Portland, Oregon · July 11–18, 2026</p>
+    </div>
+    <button class="welcome-icon-btn" onclick="openWelcomeModal()" title="Welcome">
+      <span class="welcome-icon-emoji">👋</span>Welcome
+    </button>
+  </header>
+
+  <nav id="main-nav">
+    <button class="active" onclick="switchTab('houses', this)">
+      <span class="icon">🏠</span>Houses
+    </button>
+    <button onclick="switchTab('schedule', this)">
+      <span class="icon">📅</span>Schedule
+    </button>
+    <button onclick="switchTab('guide', this)">
+      <span class="icon">🗺️</span>Portland
+    </button>
+    <button onclick="switchTab('travels', this)">
+      <span class="icon">✈️</span>Travels
+    </button>
+    <button onclick="switchTab('photos', this)">
+      <span class="icon">📷</span>Photos
+    </button>
+  </nav>
+
+  <main>
+
+    <!-- WELCOME MODAL -->
+    <div id="welcome-overlay" class="welcome-overlay" onclick="closeWelcomeOverlay(event)">
+      <div class="welcome-modal">
+        <div class="welcome-modal-header">
+          <h2>Welcome</h2>
+          <button class="welcome-modal-close" onclick="closeWelcomeModal()" title="Close">&times;</button>
+        </div>
+        <div class="welcome-modal-body">
+          <div id="welcome-editor" class="welcome-editor" contenteditable="true"><h3>Welcome to the Craig Reunion in Portland!</h3>
+<p>A warm welcome from Kirstin and Chris — we are so excited to have everyone together in Portland for the Craig Reunion. Whether you are flying in, driving down from Washington, bringing kids, exploring on your own, or just looking forward to relaxing with family, we hope this week gives everyone a good mix of time together, time to explore, and time to simply enjoy being in the Pacific Northwest.</p>
+<p>Portland is a wonderful home base for the reunion. The city sits along the Willamette River, with the Columbia River just to the north marking the border between Oregon and Washington. From here, we are close to forests, gardens, rivers, waterfalls, museums, breweries, food carts, and the Oregon coast. There should be something for everyone.</p>
+<h3>Reunion Activity Plan</h3>
+<p>In June, we will send out a survey so everyone can vote for their top three preferred group activities. Once we have the survey results, we will add the selected Activity Days to the final schedule.</p>
+<p><strong>Possible Activity Day options include:</strong></p>
+<p><strong>Oregon Zoo</strong><br>A great family-friendly outing. Plan on about 4 hours.</p>
+<p><strong>Cannon Beach Day</strong><br>An all-day trip to the Oregon coast, including Haystack Rock, Ecola State Park, and some Lewis &amp; Clark historical sites.</p>
+<p><strong>Columbia River Drive</strong><br>A mostly full-day outing along the Columbia River, with possible stops at Beacon Rock, Bonneville Dam, and Multnomah Falls.</p>
+<p><strong>Museum Day</strong><br>A Portland-based day that could include the Oregon Museum of Science &amp; Industry and Hopscotch Portland.</p>
+<h3>Rough Schedule Outline</h3>
+<p><strong>Saturday</strong> — Arrival day / Farmers Market<br>
+<strong>Sunday</strong> — Free day<br>
+<strong>Monday</strong> — Activity Day<br>
+<strong>Tuesday</strong> — Activity Day<br>
+<strong>Wednesday</strong> — Free day<br>
+<strong>Thursday</strong> — All-day Activity Day<br>
+<strong>Friday</strong> — Free day<br>
+<strong>Saturday</strong> — Farmers Market</p>
+<h3>Other Things to Do Around Portland</h3>
+<p>For people who want to explore on their own or in smaller groups, Portland and the surrounding area have plenty of options:</p>
+<p><strong>Outdoor and scenic spots:</strong> Portland Aerial Tram, Rose Garden, Japanese Garden, Hoyt Arboretum, Forest Park, The Grotto, Pittock Mansion, Cannon Beach, Mt. Hood, Columbia River Gorge, Multnomah Falls, and Beacon Rock.</p>
+<p><strong>For kids and families:</strong> Portland Insectarium, Playdate PDX, Dig PDX, Pearson Field Education Center, Oregon Zoo, and the Belmont Goats.</p>
+<p><strong>For grownups and mixed groups:</strong> River cruises, Next Level Pinball Shop &amp; Museum, Rice Northwest Museum of Rocks &amp; Minerals, Movie Madness, Portland Saturday Market, Ground Kontrol Classic Arcade, Powell's Books, and the Portland Art Museum.</p>
+<h3>Getting Around</h3>
+<p>PDX Airport is roughly 20–25 minutes from the city. You should not need to rent a car unless you prefer having your own independence. Those of us who live in Washington will have vehicles available and can help with airport pickup, drop-off, and group outings. Cris and I alone have three cars, so we should have plenty of flexibility. Some WA folks may also bring e-bikes or bikes for people to use. Lyft and Uber are also easy options.</p>
+<h3>Food and Drinks</h3>
+<p>Portland has one of the best food scenes in the Pacific Northwest. There are excellent restaurants, food carts all over the city, and more than 80 breweries in the area. Portland is also known for McMenamins, a family-owned chain of pubs, hotels, music venues, and movie theaters housed in funky renovated historic buildings. They are unique, fun, and very Portland.</p>
+<p>Most of all, we are looking forward to being together — catching up, sharing meals, exploring, laughing, and making some new Craig family memories.</p>
+<p><strong>We cannot wait to see you all in Portland!</strong></p></div>
+          <div id="welcome-save-status" class="welcome-save-status"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- HOUSES & WHO'S STAYING -->
+    <div id="tab-houses" class="tab-panel active">
+      <p class="section-label">Houses &amp; Who's Staying Where</p>
+      <img src="/houses-map.jpg" alt="Map showing Portland house locations — Blue House, Black House, and White House in the NW Portland / Nob Hill area" style="width:100%;border-radius:12px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,0.10);" />
+      <div id="houses-list"></div>
+
+      <!-- ADD A HOUSE -->
+      <div class="places-search-box" style="margin-top:4px">
+        <p style="font-size:11px;font-family:sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--moss);margin-bottom:10px">🏠 Add a House</p>
+        <input type="text" id="new-house-name" class="places-cat-input" placeholder="House name  e.g. The Burnside House" />
+        <input type="text" id="new-house-address" class="places-cat-input" placeholder="Full address" style="margin-top:7px" />
+        <input type="text" id="new-house-capacity" class="places-cat-input" placeholder="Capacity  e.g. Sleeps 6" style="margin-top:7px" />
+        <input type="text" id="new-house-note" class="places-cat-input" placeholder="Note  e.g. Has a hot tub" style="margin-top:7px" />
+        <input type="text" id="new-house-wifi" class="places-cat-input" placeholder="WiFi name (optional)" style="margin-top:7px" />
+        <input type="text" id="new-house-door" class="places-cat-input" placeholder="Door code (optional)" style="margin-top:7px" />
+        <button onclick="addHouse()" style="width:100%;margin-top:10px;background:var(--forest);color:#fff;border:none;border-radius:8px;padding:10px;font-size:14px;font-family:sans-serif;font-weight:700;cursor:pointer">Add House →</button>
+      </div>
+    </div>
+
+    <!-- SCHEDULE -->
+    <div id="tab-schedule" class="tab-panel">
+      <p class="section-label">Official Itinerary</p>
+
+      <!-- ADD EVENT -->
+      <button class="add-event-toggle" id="event-toggle-btn" onclick="toggleEventForm()">＋ Add an event to the schedule</button>
+      <div class="add-event-form" id="event-form" style="display:none">
+        <label>Event Title</label>
+        <input type="text" id="evt-title" placeholder="e.g. Morning swim at Sellwood Pool" />
+        <label>Day</label>
+        <select id="evt-day">
+          <option value="Friday, July 11">Friday, July 11</option>
+          <option value="Saturday, July 12">Saturday, July 12</option>
+          <option value="Sunday, July 13">Sunday, July 13</option>
+          <option value="Monday, July 14">Monday, July 14</option>
+          <option value="Tuesday, July 15">Tuesday, July 15</option>
+          <option value="Wednesday, July 16">Wednesday, July 16</option>
+          <option value="Thursday, July 17">Thursday, July 17</option>
+          <option value="Friday, July 18">Friday, July 18</option>
+        </select>
+        <div class="form-row">
+          <div>
+            <label>Time</label>
+            <input type="text" id="evt-time" placeholder="e.g. 10:00 AM" />
+          </div>
+          <div>
+            <label>Location (optional)</label>
+            <input type="text" id="evt-location" placeholder="e.g. Fernwood House" />
+          </div>
+        </div>
+        <label>Note (optional)</label>
+        <input type="text" id="evt-note" placeholder="Any details or instructions" />
+        <label>Your Name</label>
+        <input type="text" id="evt-author" placeholder="Who's adding this?" />
+        <button class="add-event-submit" onclick="addEvent()">Add to Schedule →</button>
+      </div>
+
+      <div id="schedule-list"></div>
+    </div>
+
+    <!-- PORTLAND GUIDE -->
+    <div id="tab-guide" class="tab-panel">
+      <p class="section-label">Portland Guide</p>
+
+      <div class="search-wrap">
+        <span class="search-icon">🗂</span>
+        <input type="text" id="guide-search" placeholder="Filter saved places…" oninput="runGuideSearch()" autocomplete="off" />
+        <button class="search-clear" id="search-clear" onclick="clearGuideSearch()" style="display:none">×</button>
+      </div>
+
+      <div class="filter-bar" id="guide-filter-bar">
+        <button class="filter-btn active" onclick="switchGuide('restaurants', this)">Restaurants</button>
+        <button class="filter-btn" onclick="switchGuide('coffee', this)">Coffee &amp; Cafes</button>
+        <button class="filter-btn" onclick="switchGuide('hiking', this)">Hiking</button>
+        <button class="filter-btn" onclick="switchGuide('activities', this)">Activities</button>
+        <button class="filter-btn" onclick="switchGuide('groceries', this)">Groceries</button>
+        <button class="filter-btn" onclick="switchGuide('tips', this)">Tips &amp; Info</button>
+      </div>
+
+      <div id="guide-search-results" style="display:none"></div>
+
+      <div id="guide-restaurants"></div>
+      <div id="guide-coffee" style="display:none"></div>
+      <div id="guide-hiking" style="display:none"></div>
+      <div id="guide-activities" style="display:none"></div>
+      <div id="guide-groceries" style="display:none"></div>
+      <div id="guide-tips" style="display:none"></div>
+
+      <!-- ADD A PLACE -->
+      <div class="places-search-box" style="margin-top:6px">
+        <p style="font-size:11px;font-family:sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--moss);margin-bottom:10px">＋ Add a Place to the Guide</p>
+        <input type="text" id="add-place-name" placeholder="Place name  e.g. Ox Restaurant" class="places-cat-input" />
+        <input type="url" id="add-place-url" placeholder="Paste link from Maps, Yelp, website…" class="places-cat-input" style="margin-top:7px" />
+        <input type="text" id="add-place-note" placeholder="Note  (optional — e.g. great for groups)" class="places-cat-input" style="margin-top:7px" />
+        <input type="text" id="add-place-distance" placeholder="Distance  (optional — e.g. 0.4 mi from Fernwood)" class="places-cat-input" style="margin-top:7px" />
+        <select id="places-category" class="places-cat-select" style="margin-top:7px">
+          <option value="restaurants">Add to Restaurants</option>
+          <option value="coffee">Add to Coffee &amp; Cafes</option>
+          <option value="hiking">Add to Hiking</option>
+          <option value="activities">Add to Activities</option>
+          <option value="groceries">Add to Groceries</option>
+        </select>
+        <button onclick="addPastedPlace()" style="width:100%;margin-top:10px;background:var(--forest);color:#fff;border:none;border-radius:8px;padding:10px;font-size:14px;font-family:sans-serif;font-weight:700;cursor:pointer">Add to Guide →</button>
+        <p id="add-place-error" style="display:none;color:#c0392b;font-size:12px;font-family:sans-serif;margin-top:6px;text-align:center"></p>
+      </div>
+    </div>
+
+    <!-- TRAVELS -->
+    <div id="tab-travels" class="tab-panel">
+      <p class="section-label">Travel Coordination</p>
+
+      <div class="travels-filter-bar">
+        <button class="travels-filter-btn active" onclick="switchTravels('arrivals', this)">Arrivals</button>
+        <button class="travels-filter-btn" onclick="switchTravels('departures', this)">Departures</button>
+        <button class="travels-filter-btn" onclick="switchTravels('carpools', this)">Carpools</button>
+      </div>
+
+      <!-- ARRIVALS -->
+      <div id="travels-arrivals">
+        <div id="arrivals-list"></div>
+        <div class="places-search-box" style="margin-top:6px">
+          <p style="font-size:11px;font-family:sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--moss);margin-bottom:10px">✈️ Add Your Arrival</p>
+          <input type="text" id="arr-name" class="places-cat-input" placeholder="Your name" />
+          <input type="text" id="arr-airline" class="places-cat-input" placeholder="Airline  e.g. Alaska Airlines" style="margin-top:7px" />
+          <input type="text" id="arr-flight" class="places-cat-input" placeholder="Flight number  e.g. AS 234" style="margin-top:7px" />
+          <div style="display:flex;gap:8px;margin-top:7px">
+            <input type="text" id="arr-date" class="places-cat-input" placeholder="Date  e.g. Jul 11" style="flex:1" />
+            <input type="text" id="arr-time" class="places-cat-input" placeholder="Time  e.g. 3:45 PM" style="flex:1" />
+          </div>
+          <input type="text" id="arr-airport" class="places-cat-input" placeholder="Airport (default: PDX)" style="margin-top:7px" />
+          <input type="text" id="arr-note" class="places-cat-input" placeholder="Note (optional)" style="margin-top:7px" />
+          <button onclick="addArrival()" style="width:100%;margin-top:10px;background:var(--forest);color:#fff;border:none;border-radius:8px;padding:10px;font-size:14px;font-family:sans-serif;font-weight:700;cursor:pointer">Add Arrival →</button>
+        </div>
+      </div>
+
+      <!-- DEPARTURES -->
+      <div id="travels-departures" style="display:none">
+        <div id="departures-list"></div>
+        <div class="places-search-box" style="margin-top:6px">
+          <p style="font-size:11px;font-family:sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--moss);margin-bottom:10px">✈️ Add Your Departure</p>
+          <input type="text" id="dep-name" class="places-cat-input" placeholder="Your name" />
+          <input type="text" id="dep-airline" class="places-cat-input" placeholder="Airline  e.g. Alaska Airlines" style="margin-top:7px" />
+          <input type="text" id="dep-flight" class="places-cat-input" placeholder="Flight number  e.g. AS 567" style="margin-top:7px" />
+          <div style="display:flex;gap:8px;margin-top:7px">
+            <input type="text" id="dep-date" class="places-cat-input" placeholder="Date  e.g. Jul 18" style="flex:1" />
+            <input type="text" id="dep-time" class="places-cat-input" placeholder="Time  e.g. 11:00 AM" style="flex:1" />
+          </div>
+          <input type="text" id="dep-airport" class="places-cat-input" placeholder="Airport (default: PDX)" style="margin-top:7px" />
+          <input type="text" id="dep-note" class="places-cat-input" placeholder="Note (optional)" style="margin-top:7px" />
+          <button onclick="addDeparture()" style="width:100%;margin-top:10px;background:var(--forest);color:#fff;border:none;border-radius:8px;padding:10px;font-size:14px;font-family:sans-serif;font-weight:700;cursor:pointer">Add Departure →</button>
+        </div>
+      </div>
+
+      <!-- CARPOOLS -->
+      <div id="travels-carpools" style="display:none">
+        <div id="carpools-list"></div>
+        <div class="places-search-box" style="margin-top:6px">
+          <p style="font-size:11px;font-family:sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--moss);margin-bottom:10px">🚗 Offer a Ride</p>
+          <input type="text" id="cp-driver" class="places-cat-input" placeholder="Your name" />
+          <input type="text" id="cp-car" class="places-cat-input" placeholder="Car description  e.g. Silver Honda Odyssey" style="margin-top:7px" />
+          <select id="cp-direction" class="places-cat-select" style="margin-top:7px">
+            <option value="pickup">Airport Pickup (arriving guests)</option>
+            <option value="dropoff">Airport Dropoff (departing guests)</option>
+          </select>
+          <div style="display:flex;gap:8px;margin-top:7px">
+            <input type="text" id="cp-date" class="places-cat-input" placeholder="Date  e.g. Jul 11" style="flex:1" />
+            <input type="text" id="cp-time" class="places-cat-input" placeholder="Time  e.g. 4:00 PM" style="flex:1" />
+          </div>
+          <div style="display:flex;gap:8px;margin-top:7px">
+            <input type="number" id="cp-seats" class="places-cat-input" placeholder="Seats available" value="4" min="1" max="10" style="flex:1" />
+            <input type="text" id="cp-airport" class="places-cat-input" placeholder="Airport (default: PDX)" style="flex:1" />
+          </div>
+          <input type="text" id="cp-note" class="places-cat-input" placeholder="Note (optional)  e.g. Can fit luggage for 3" style="margin-top:7px" />
+          <button onclick="addCarpool()" style="width:100%;margin-top:10px;background:var(--forest);color:#fff;border:none;border-radius:8px;padding:10px;font-size:14px;font-family:sans-serif;font-weight:700;cursor:pointer">Offer Ride →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHOTOS -->
+    <div id="tab-photos" class="tab-panel">
+      <p class="section-label">Reunion Photos</p>
+      <div class="card" style="text-align:center;padding:24px 16px">
+        <div style="font-size:48px;margin-bottom:12px">📸</div>
+        <div class="card-title" style="padding-right:0;margin-bottom:8px">Shared Photo Album</div>
+        <p class="card-sub" style="margin-bottom:14px;line-height:1.5">
+          Drop your favorite reunion photos into the shared Google Photos album so everyone can see them!
+        </p>
+        <a href="https://photos.app.goo.gl/tRjo3Q654dusegFR6" target="_blank" rel="noopener noreferrer" style="display:inline-block;background:var(--forest);color:#fff;border-radius:8px;padding:12px 28px;font-size:15px;font-family:sans-serif;font-weight:700;text-decoration:none;transition:opacity 0.15s">
+          Open Photo Album →
+        </a>
+        <p style="font-size:12px;color:#999;font-family:sans-serif;margin-top:14px;line-height:1.5">
+          Opens in Google Photos · Add your own pics &amp; browse what others have shared
+        </p>
+      </div>
+    </div>
+
+  </main>
+</div>
+
+<script>
+  let appData = null;
+  let dataHash = '';
+  let pollTimer = null;
+
+  const HOUSE_COLORS = ['#5B7FA6','#7A5C8A','#A6755B','#5B8A6E','#8A5B5B'];
+  const DAY_ORDER = [
+    'Friday, July 11','Saturday, July 12','Sunday, July 13','Monday, July 14',
+    'Tuesday, July 15','Wednesday, July 16','Thursday, July 17','Friday, July 18'
+  ];
+  const DIFF_COLORS = { Easy: '#4A7C59', Moderate: '#D4820A', Hard: '#C97B5A' };
+  const CUISINE_ICONS = {
+    'All': '🍽', 'Steakhouse': '🥩', 'Italian': '🍝', 'American': '🍔',
+    'Japanese': '🍣', 'Pizza': '🍕', 'Mexican': '🌮', 'Peruvian': '🫕',
+    'French': '🥐', 'Thai': '🍜', 'Wine Bar': '🍷', 'Brunch': '🍳',
+    'Korean': '🥘', 'Southern': '🍗', 'Seafood': '🐟'
+  };
+
+  // --- DATA FETCHING ---
+  async function fetchData() {
+    try {
+      const res = await fetch('/api/sync');
+      if (!res.ok) return;
+      const data = await res.json();
+      const hash = JSON.stringify(data);
+      if (hash !== dataHash) {
+        dataHash = hash;
+        appData = data;
+        renderAll();
+      }
+    } catch (e) {}
+  }
+
+  function startPolling() {
+    if (pollTimer) clearInterval(pollTimer);
+    pollTimer = setInterval(fetchData, 3000);
+  }
+
+  // --- API CALLS ---
+  async function apiPost(path, body) {
+    var url = '/api' + path;
+    var res = await fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    if (res.ok) {
+      await fetchData();
+    } else {
+      var respBody = null;
+      try { respBody = await res.json(); } catch (_) { try { respBody = await res.text(); } catch (_) {} }
+      console.error('API POST ' + url + ' failed:', { status: res.status, statusText: res.statusText, body: respBody });
+      res._errorDetail = respBody;
+    }
+    return res;
+  }
+
+  async function apiDelete(path, params) {
+    var qs = new URLSearchParams(params).toString();
+    var url = '/api' + path + '?' + qs;
+    var res = await fetch(url, { method: 'DELETE' });
+    if (res.ok) {
+      await fetchData();
+    } else {
+      var respBody = null;
+      try { respBody = await res.json(); } catch (_) { try { respBody = await res.text(); } catch (_) {} }
+      console.error('API DELETE ' + url + ' failed:', { status: res.status, statusText: res.statusText, body: respBody });
+      res._errorDetail = respBody;
+    }
+    return res;
+  }
+
+  // --- ESCAPING ---
+  function esc(str) {
+    if (!str) return '';
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  // --- RENDER ALL ---
+  function renderAll() {
+    if (!appData) return;
+    renderWelcome();
+    renderHouses();
+    renderSchedule();
+    renderGuide();
+    renderTravels();
+  }
+
+  // --- WELCOME MESSAGE ---
+  var welcomeLoaded = false;
+  var welcomeSaveTimer = null;
+
+  function openWelcomeModal() {
+    document.getElementById('welcome-overlay').classList.add('open');
+  }
+  function closeWelcomeModal() {
+    document.getElementById('welcome-overlay').classList.remove('open');
+  }
+  function closeWelcomeOverlay(e) {
+    if (e.target === document.getElementById('welcome-overlay')) closeWelcomeModal();
+  }
+
+  function renderWelcome() {
+    var editor = document.getElementById('welcome-editor');
+    if (!welcomeLoaded && appData.welcomeMessage) {
+      editor.innerHTML = appData.welcomeMessage;
+      welcomeLoaded = true;
+    }
+  }
+
+  (function initWelcomeEditor() {
+    var editor = document.getElementById('welcome-editor');
+    var status = document.getElementById('welcome-save-status');
+
+    editor.addEventListener('input', function() {
+      status.textContent = '';
+      if (welcomeSaveTimer) clearTimeout(welcomeSaveTimer);
+      welcomeSaveTimer = setTimeout(function() {
+        saveWelcomeMessage(editor.innerHTML);
+      }, 800);
+    });
+  })();
+
+  async function saveWelcomeMessage(content) {
+    var status = document.getElementById('welcome-save-status');
+    try {
+      var res = await fetch('/api/welcome', {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content: content }),
+      });
+      if (res.ok) {
+        status.textContent = 'Saved';
+        setTimeout(function() { status.textContent = ''; }, 2000);
+      }
+    } catch (e) {
+      status.textContent = 'Could not save';
+    }
+  }
+
+  // --- HOUSES RENDERING ---
+  function renderHouses() {
+    const container = document.getElementById('houses-list');
+    let html = '';
+    for (const house of appData.houses) {
+      const houseGuests = appData.guests.filter(g => g.houseId === house.id);
+      const groups = {};
+      for (const g of houseGuests) {
+        const key = g.familyGroup || g.name;
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(g);
+      }
+      const mapsUrl = house.address ? 'https://maps.google.com/?q=' + encodeURIComponent(house.address) : '';
+      html += '<div class="house-block" style="--hcolor:' + esc(house.color) + '">';
+      html += '<div class="house-card">';
+      html += '<div class="house-card-top"><span class="house-emoji">' + esc(house.emoji) + '</span>';
+      html += '<div class="house-info"><div class="house-name">' + esc(house.name) + '</div>';
+      if (house.capacity) html += '<span class="badge" style="background:' + esc(house.color) + '">' + esc(house.capacity) + '</span>';
+      html += '</div></div>';
+      if (house.address) html += '<div class="card-sub" style="margin-bottom:4px">' + esc(house.address) + '</div>';
+      if (house.note) html += '<div class="card-note" style="margin-bottom:6px">' + esc(house.note) + '</div>';
+      if (house.wifi || house.doorCode) {
+        html += '<div class="house-meta-row">';
+        if (house.doorCode) html += '<span class="house-meta-item">🔑 Door code: <strong>' + esc(house.doorCode) + '</strong></span>';
+        if (house.wifi) html += '<span class="house-meta-item">📶 WiFi: <strong>' + esc(house.wifi) + '</strong></span>';
+        html += '</div>';
+      }
+      if (house.url) html += '<a href="' + esc(house.url) + '" target="_blank" class="map-btn" style="margin-top:8px">🏠 View Listing</a>';
+      if (mapsUrl) html += '<a href="' + mapsUrl + '" target="_blank" class="map-btn" style="margin-top:' + (house.url ? '4' : '8') + 'px">📍 Open in Maps</a>';
+      html += '<button class="house-del-btn" onclick="deleteHouse(' + house.id + ')">🗑 Delete House</button>';
+      html += '</div>';
+
+      html += '<div class="house-guests-label" onclick="toggleGuestList(\'h' + house.id + '\')" style="cursor:pointer;user-select:none">Staying here <span id="h' + house.id + '-toggle-icon">▾</span></div>';
+      html += '<div id="h' + house.id + '-guests">';
+
+      for (const [groupName, members] of Object.entries(groups)) {
+        const gid = 'fg-' + house.id + '-' + groupName.replace(/[^a-zA-Z0-9]/g, '');
+        const icon = members.length > 1 ? '👨‍👩‍👧‍👦' : '👤';
+        html += '<div class="family-group">';
+        html += '<div class="family-group-header" onclick="toggleFamily(\'' + gid + '\')">';
+        html += '<span>' + icon + ' ' + esc(groupName) + '</span>';
+        html += '<div style="display:flex;align-items:center"><span class="family-toggle-icon" id="icon-' + gid + '">▾</span>';
+        html += '<button class="family-del-btn" onclick="event.stopPropagation();deleteFamilyGroup(' + house.id + ',\'' + esc(groupName).replace(/'/g, "\\'") + '\')">×</button></div>';
+        html += '</div>';
+        html += '<div class="family-members" id="members-' + gid + '">';
+        for (const g of members) {
+          html += '<div class="house-guest">';
+          html += '<div class="hg-left"><div class="hg-name">' + esc(g.name) + '</div>';
+          if (g.role) html += '<div class="hg-role">' + esc(g.role) + '</div>';
+          html += '</div>';
+          html += '<div style="display:flex;align-items:center;gap:6px">';
+          html += '<div class="hg-dates">';
+          if (g.arrival) html += '<span>↘ ' + esc(g.arrival) + '</span>';
+          if (g.departure) html += '<span>↗ ' + esc(g.departure) + '</span>';
+          html += '</div>';
+          html += '<button class="guest-del-btn" onclick="deleteGuest(' + g.id + ')">×</button>';
+          html += '</div></div>';
+        }
+        html += '</div></div>';
+      }
+
+      html += '</div>';
+      html += '<div class="add-guest-row">';
+      html += '<button class="add-guest-toggle" onclick="toggleAddGuest(\'h' + house.id + '\')">＋ Add someone to this house</button>';
+      html += '<div class="add-guest-form" id="add-guest-h' + house.id + '" style="display:none">';
+      html += '<input type="text" class="places-cat-input" placeholder="Name or family  e.g. The Johnson Family" id="gname-h' + house.id + '" />';
+      html += '<input type="text" class="places-cat-input" placeholder="Family group (optional)  e.g. Johnson Family" id="ggroup-h' + house.id + '" style="margin-top:6px" />';
+      html += '<input type="text" class="places-cat-input" placeholder="Role (optional)  e.g. Family Friends" id="grole-h' + house.id + '" style="margin-top:6px" />';
+      html += '<div style="display:flex;gap:8px;margin-top:6px">';
+      html += '<input type="text" class="places-cat-input" placeholder="↘ Arrival  e.g. Jul 11" id="garr-h' + house.id + '" style="flex:1" />';
+      html += '<input type="text" class="places-cat-input" placeholder="↗ Departure  e.g. Jul 18" id="gdep-h' + house.id + '" style="flex:1" />';
+      html += '</div>';
+      html += '<button class="add-guest-submit" onclick="addGuest(' + house.id + ')">Add to House →</button>';
+      html += '</div></div>';
+      html += '</div>';
+    }
+    container.innerHTML = html;
+  }
+
+  // --- SCHEDULE RENDERING ---
+  function renderSchedule() {
+    const container = document.getElementById('schedule-list');
+    const grouped = {};
+    for (const evt of appData.events) {
+      if (!grouped[evt.day]) grouped[evt.day] = [];
+      grouped[evt.day].push(evt);
+    }
+    const days = DAY_ORDER.filter(d => grouped[d]);
+    for (const d of Object.keys(grouped)) {
+      if (!days.includes(d)) days.push(d);
+    }
+    let html = '';
+    for (const day of days) {
+      html += '<div class="day-group"><div class="day-header">' + esc(day) + '</div>';
+      for (const evt of grouped[day]) {
+        const isUser = !!evt.author;
+        html += '<div class="event-row' + (isUser ? ' user-added' : '') + '">';
+        html += '<button class="delete-btn" onclick="deleteEvent(' + evt.id + ')" title="Remove event">×</button>';
+        html += '<div class="event-time">' + esc(evt.time) + '</div>';
+        html += '<div class="event-title">' + esc(evt.title);
+        if (evt.author) html += '<span class="user-tag">added by ' + esc(evt.author) + '</span>';
+        html += '</div>';
+        if (evt.location) html += '<div class="event-location">📍 ' + esc(evt.location) + '</div>';
+        if (evt.note) html += '<div class="event-note">' + esc(evt.note) + '</div>';
+        html += '</div>';
+      }
+      html += '</div>';
+    }
+    container.innerHTML = html;
+  }
+
+  // --- GUIDE RENDERING ---
+  function renderGuide() {
+    renderPlacesCategory('restaurants');
+    renderPlacesCategory('coffee');
+    renderPlacesCategory('hiking');
+    renderPlacesCategory('activities');
+    renderPlacesCategory('groceries');
+    renderTips();
+  }
+
+  function renderPlacesCategory(category) {
+    const container = document.getElementById('guide-' + category);
+    const items = appData.places.filter(p => p.category === category);
+    let html = '';
+
+    if (category === 'restaurants') {
+      var cuisines = [];
+      for (var i = 0; i < items.length; i++) {
+        var c = items[i].cuisine;
+        if (c && cuisines.indexOf(c) === -1) cuisines.push(c);
+      }
+      html += '<div class="cuisine-filter-wrap">';
+      html += '<div class="cuisine-filter-bar">';
+      html += '<button class="cuisine-btn active" onclick="filterCuisine(\'All\', this)"><span class="cuisine-icon">🍽</span><span class="cuisine-label">All</span></button>';
+      for (var ci = 0; ci < cuisines.length; ci++) {
+        var cname = cuisines[ci];
+        var cicon = CUISINE_ICONS[cname] || '🍽';
+        html += '<button class="cuisine-btn" onclick="filterCuisine(\'' + esc(cname) + '\', this)"><span class="cuisine-icon">' + cicon + '</span><span class="cuisine-label">' + esc(cname) + '</span></button>';
+      }
+      html += '</div></div>';
+    }
+
+    if (category === 'hiking') {
+      html += '<div class="diff-bar">';
+      html += '<button class="diff-btn active" onclick="filterHikes(\'All\', this)">All</button>';
+      html += '<button class="diff-btn" onclick="filterHikes(\'Easy\', this)">Easy</button>';
+      html += '<button class="diff-btn" onclick="filterHikes(\'Moderate\', this)">Moderate</button>';
+      html += '<button class="diff-btn" onclick="filterHikes(\'Hard\', this)">Hard</button>';
+      html += '</div>';
+    }
+
+    for (const place of items) {
+      const mapsUrl = 'https://maps.google.com/?q=' + encodeURIComponent(place.name + (place.address ? ' ' + place.address : '') + ' Portland OR');
+      const searchData = (place.name + ' ' + (place.note || '') + ' ' + (place.address || '') + ' ' + (place.distance || '') + ' ' + category).toLowerCase();
+
+      if (category === 'hiking') {
+        const diffColor = DIFF_COLORS[place.difficulty] || '#4A7C59';
+        html += '<div class="hike-card card" data-diff="' + esc(place.difficulty) + '" data-search="' + esc(searchData) + '" style="position:relative">';
+        html += '<div class="hike-row"><div class="card-title">' + esc(place.name) + '</div>';
+        if (place.difficulty) html += '<span class="hike-badge" style="background:' + diffColor + '">' + esc(place.difficulty) + '</span>';
+        html += '</div>';
+        if (place.length) html += '<div class="hike-meta">🥾 ' + esc(place.length) + '</div>';
+      } else if (category === 'restaurants') {
+        var cuisineIcon = place.cuisine ? (CUISINE_ICONS[place.cuisine] || '🍽') : '';
+        html += '<div class="card restaurant-card" data-cuisine="' + esc(place.cuisine || '') + '" data-search="' + esc(searchData) + '" style="position:relative">';
+        html += '<div class="card-title">' + (cuisineIcon ? cuisineIcon + ' ' : '') + esc(place.name) + '</div>';
+        if (place.cuisine) html += '<div style="margin-bottom:4px"><span class="badge" style="background:var(--moss);font-size:10px">' + esc(place.cuisine) + '</span></div>';
+        if (place.address) html += '<div class="card-sub">📍 ' + esc(place.address) + '</div>';
+      } else {
+        html += '<div class="card" data-search="' + esc(searchData) + '" style="position:relative">';
+        html += '<div class="card-title">' + esc(place.name) + '</div>';
+        if (place.address) html += '<div class="card-sub">📍 ' + esc(place.address) + '</div>';
+      }
+
+      if (place.note) html += '<div class="card-note"' + (place.guideNote ? ' style="margin-bottom:4px"' : '') + '>' + esc(place.note) + '</div>';
+      if (place.guideNote) html += '<div class="guide-note">' + esc(place.guideNote) + '</div>';
+      if (place.distance) html += '<div><span class="distance-tag">📍 ' + esc(place.distance) + '</span></div>';
+      html += '<div class="card-btns">';
+      if (place.url) html += '<a href="' + esc(place.url) + '" target="_blank" class="card-btn-web">🌐 Website</a>';
+      html += '<a href="' + mapsUrl + '" target="_blank" class="card-btn-map">📍 Directions</a>';
+      html += '</div>';
+      html += '<button class="guide-del-btn" onclick="deletePlace(' + place.id + ')">×</button>';
+      html += '</div>';
+    }
+    container.innerHTML = html;
+  }
+
+  function renderTips() {
+    const container = document.getElementById('guide-tips');
+    let html = '';
+    html += '<div class="tips-add-box"><p class="tips-add-label">＋ Add a new category</p>';
+    html += '<input type="text" id="tips-cat-name" class="places-cat-input" placeholder="Category name  e.g. Parking, Weather, Hospitals" />';
+    html += '<button onclick="addTipsCategory()" class="tips-add-cat-btn">Create Category →</button></div>';
+
+    for (const cat of appData.tipsCategories) {
+      const items = appData.tipsItems.filter(i => i.categoryId === cat.id);
+      html += '<div class="tips-block">';
+      html += '<div class="tips-block-header"><span>' + esc(cat.name) + '</span>';
+      html += '<button class="tips-del-cat-btn" onclick="deleteTipsCategory(' + cat.id + ')" title="Delete category">×</button></div>';
+      html += '<ul class="tips-list">';
+      for (const item of items) {
+        html += '<li class="tips-item"><span>' + esc(item.text) + '</span>';
+        html += '<button class="tips-del-item" onclick="deleteTipsItem(' + item.id + ')" title="Remove">×</button></li>';
+      }
+      html += '</ul>';
+      html += '<div class="tips-add-item-row">';
+      html += '<input type="text" class="tips-item-input" placeholder="Add a tip…" id="tip-input-' + cat.id + '" />';
+      html += '<button class="tips-add-item-btn" onclick="addTipsItem(' + cat.id + ')">＋</button>';
+      html += '</div></div>';
+    }
+    container.innerHTML = html;
+  }
+
+  // --- CRUD ACTIONS ---
+  async function addHouse() {
+    const name = document.getElementById('new-house-name').value.trim();
+    if (!name) return;
+    const color = HOUSE_COLORS[appData.houses.length % HOUSE_COLORS.length];
+    await apiPost('/houses', {
+      name: name,
+      address: document.getElementById('new-house-address').value.trim() || null,
+      capacity: document.getElementById('new-house-capacity').value.trim() || null,
+      note: document.getElementById('new-house-note').value.trim() || null,
+      wifi: document.getElementById('new-house-wifi').value.trim() || null,
+      doorCode: document.getElementById('new-house-door').value.trim() || null,
+      color: color,
+    });
+    ['new-house-name','new-house-address','new-house-capacity','new-house-note','new-house-wifi','new-house-door']
+      .forEach(function(id) { document.getElementById(id).value = ''; });
+  }
+
+  async function deleteHouse(id) {
+    if (!confirm('Remove this house and everyone in it?')) return;
+    await apiDelete('/houses', { id: id });
+  }
+
+  async function addGuest(houseId) {
+    const prefix = 'h' + houseId;
+    const name = document.getElementById('gname-' + prefix).value.trim();
+    if (!name) return;
+    await apiPost('/guests', {
+      houseId: houseId,
+      name: name,
+      familyGroup: document.getElementById('ggroup-' + prefix).value.trim() || name,
+      role: document.getElementById('grole-' + prefix).value.trim() || null,
+      arrival: document.getElementById('garr-' + prefix).value.trim() || null,
+      departure: document.getElementById('gdep-' + prefix).value.trim() || null,
+    });
+  }
+
+  async function deleteGuest(id) {
+    await apiDelete('/guests', { id: id });
+  }
+
+  async function deleteFamilyGroup(houseId, group) {
+    if (!confirm('Remove this whole family group?')) return;
+    await apiDelete('/guests/family', { houseId: houseId, group: group });
+  }
+
+  async function addEvent() {
+    var title = document.getElementById('evt-title').value.trim();
+    var author = document.getElementById('evt-author').value.trim();
+    if (!title || !author) { alert('Please add at least a title and your name.'); return; }
+    await apiPost('/events', {
+      title: title,
+      day: document.getElementById('evt-day').value,
+      time: document.getElementById('evt-time').value.trim() || 'TBD',
+      location: document.getElementById('evt-location').value.trim() || null,
+      note: document.getElementById('evt-note').value.trim() || null,
+      author: author,
+    });
+    ['evt-title','evt-time','evt-location','evt-note','evt-author'].forEach(function(id) { document.getElementById(id).value = ''; });
+    document.getElementById('event-form').style.display = 'none';
+    document.getElementById('event-toggle-btn').textContent = '＋ Add an event to the schedule';
+  }
+
+  async function deleteEvent(id) {
+    await apiDelete('/events', { id: id });
+  }
+
+  async function addPastedPlace() {
+    var name = document.getElementById('add-place-name').value.trim();
+    var errEl = document.getElementById('add-place-error');
+    if (!name) { errEl.textContent = 'Please enter a place name.'; errEl.style.display = 'block'; return; }
+    errEl.style.display = 'none';
+    await apiPost('/places', {
+      name: name,
+      category: document.getElementById('places-category').value,
+      url: document.getElementById('add-place-url').value.trim() || null,
+      note: document.getElementById('add-place-note').value.trim() || null,
+      distance: document.getElementById('add-place-distance').value.trim() || null,
+    });
+    ['add-place-name','add-place-url','add-place-note','add-place-distance'].forEach(function(id) { document.getElementById(id).value = ''; });
+  }
+
+  async function deletePlace(id) {
+    await apiDelete('/places', { id: id });
+  }
+
+  async function addTipsCategory() {
+    var nameInput = document.getElementById('tips-cat-name');
+    var name = nameInput.value.trim();
+    if (!name) return;
+    await apiPost('/tips/categories', { name: name });
+    nameInput.value = '';
+  }
+
+  async function deleteTipsCategory(id) {
+    if (!confirm('Remove this whole category?')) return;
+    await apiDelete('/tips/categories', { id: id });
+  }
+
+  async function addTipsItem(categoryId) {
+    var input = document.getElementById('tip-input-' + categoryId);
+    var text = input.value.trim();
+    if (!text) return;
+    await apiPost('/tips/items', { categoryId: categoryId, text: text });
+  }
+
+  async function deleteTipsItem(id) {
+    await apiDelete('/tips/items', { id: id });
+  }
+
+  // --- UI HELPERS ---
+  function switchTab(tabId, btn) {
+    document.querySelectorAll('.tab-panel').forEach(function(p) { p.classList.remove('active'); });
+    document.querySelectorAll('#main-nav button').forEach(function(b) { b.classList.remove('active'); });
+    document.getElementById('tab-' + tabId).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function toggleEventForm() {
+    var form = document.getElementById('event-form');
+    var btn = document.getElementById('event-toggle-btn');
+    var open = form.style.display !== 'none';
+    form.style.display = open ? 'none' : 'block';
+    btn.textContent = open ? '＋ Add an event to the schedule' : '✕ Cancel';
+  }
+
+  function toggleGuestList(houseId) {
+    var el = document.getElementById(houseId + '-guests');
+    var icon = document.getElementById(houseId + '-toggle-icon');
+    var hidden = el.style.display === 'none';
+    el.style.display = hidden ? '' : 'none';
+    icon.textContent = hidden ? '▾' : '▸';
+  }
+
+  function toggleFamily(groupId) {
+    var members = document.getElementById('members-' + groupId);
+    var icon = document.getElementById('icon-' + groupId);
+    var collapsed = members.classList.toggle('collapsed');
+    icon.textContent = collapsed ? '▸' : '▾';
+  }
+
+  function toggleAddGuest(houseId) {
+    var form = document.getElementById('add-guest-' + houseId);
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+  }
+
+  function switchGuide(section, btn) {
+    ['restaurants','coffee','hiking','activities','groceries','tips'].forEach(function(s) {
+      var el = document.getElementById('guide-' + s);
+      if (el) el.style.display = s === section ? '' : 'none';
+    });
+    document.querySelectorAll('.filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+  }
+
+  function filterHikes(diff, btn) {
+    document.querySelectorAll('.hike-card').forEach(function(card) {
+      card.style.display = (diff === 'All' || card.dataset.diff === diff) ? '' : 'none';
+    });
+    document.querySelectorAll('.diff-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+  }
+
+  function filterCuisine(cuisine, btn) {
+    document.querySelectorAll('.restaurant-card').forEach(function(card) {
+      card.style.display = (cuisine === 'All' || card.dataset.cuisine === cuisine) ? '' : 'none';
+    });
+    document.querySelectorAll('.cuisine-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+  }
+
+  function runGuideSearch() {
+    var q = document.getElementById('guide-search').value.trim().toLowerCase();
+    var clearBtn = document.getElementById('search-clear');
+    var resultsDiv = document.getElementById('guide-search-results');
+    var filterBar = document.getElementById('guide-filter-bar');
+    var sections = ['restaurants','coffee','hiking','activities','groceries'];
+
+    if (!q) { clearGuideSearch(); return; }
+    clearBtn.style.display = 'block';
+    resultsDiv.style.display = 'block';
+    filterBar.style.display = 'none';
+    sections.forEach(function(s) { document.getElementById('guide-' + s).style.display = 'none'; });
+    document.getElementById('guide-tips').style.display = 'none';
+
+    var categoryLabels = {
+      restaurants: '🍽 Restaurant', coffee: '☕ Coffee & Cafe', hiking: '🥾 Hiking',
+      activities: '🎯 Activity', groceries: '🛒 Grocery'
+    };
+    var html = '';
+    var count = 0;
+    sections.forEach(function(cat) {
+      var cards = document.querySelectorAll('#guide-' + cat + ' [data-search]');
+      cards.forEach(function(card) {
+        if (card.dataset.search.includes(q) || card.innerText.toLowerCase().includes(q)) {
+          html += '<div class="card"><div style="margin-bottom:5px"><span class="search-category-label">' + categoryLabels[cat] + '</span></div>' + card.innerHTML + '</div>';
+          count++;
+        }
+      });
+    });
+    resultsDiv.innerHTML = count > 0 ? html : '<div class="no-results">No results for "' + esc(q) + '"</div>';
+  }
+
+  function clearGuideSearch() {
+    document.getElementById('guide-search').value = '';
+    document.getElementById('search-clear').style.display = 'none';
+    document.getElementById('guide-search-results').style.display = 'none';
+    document.getElementById('guide-filter-bar').style.display = 'flex';
+    var active = document.querySelector('.filter-btn.active');
+    var cat = active ? active.textContent.toLowerCase().replace(/\s*&.*/, '').trim() : 'restaurants';
+    ['restaurants','coffee','hiking','activities','groceries','tips'].forEach(function(s) {
+      var el = document.getElementById('guide-' + s);
+      if (el) el.style.display = s === cat ? '' : 'none';
+    });
+  }
+
+  // --- TRAVELS RENDERING ---
+  function renderTravels() {
+    renderArrivals();
+    renderDepartures();
+    renderCarpools();
+  }
+
+  function renderArrivals() {
+    var container = document.getElementById('arrivals-list');
+    var items = appData.arrivals || [];
+    var html = '';
+    if (items.length === 0) {
+      html = '<div class="travel-empty">No arrivals added yet — be the first!</div>';
+    }
+    for (var i = 0; i < items.length; i++) {
+      var a = items[i];
+      html += '<div class="travel-card">';
+      html += '<div class="travel-card-name">↘️ ' + esc(a.name) + '</div>';
+      if (a.airline || a.flightNumber) {
+        html += '<div class="travel-card-detail">';
+        if (a.airline) html += '✈️ ' + esc(a.airline);
+        if (a.flightNumber) html += (a.airline ? ' · ' : '') + '<strong>' + esc(a.flightNumber) + '</strong>';
+        html += '</div>';
+      }
+      html += '<div class="travel-card-detail">📅 ' + esc(a.arrivalDate);
+      if (a.arrivalTime) html += ' at <strong>' + esc(a.arrivalTime) + '</strong>';
+      html += '</div>';
+      if (a.airport && a.airport !== 'PDX') html += '<div class="travel-card-detail">🛬 ' + esc(a.airport) + '</div>';
+      if (a.note) html += '<div class="travel-card-note">' + esc(a.note) + '</div>';
+      html += '<button class="travel-del-btn" onclick="deleteArrival(' + a.id + ')" title="Remove">×</button>';
+      html += '</div>';
+    }
+    container.innerHTML = html;
+  }
+
+  function renderDepartures() {
+    var container = document.getElementById('departures-list');
+    var items = appData.departures || [];
+    var html = '';
+    if (items.length === 0) {
+      html = '<div class="travel-empty">No departures added yet — be the first!</div>';
+    }
+    for (var i = 0; i < items.length; i++) {
+      var d = items[i];
+      html += '<div class="travel-card">';
+      html += '<div class="travel-card-name">↗️ ' + esc(d.name) + '</div>';
+      if (d.airline || d.flightNumber) {
+        html += '<div class="travel-card-detail">';
+        if (d.airline) html += '✈️ ' + esc(d.airline);
+        if (d.flightNumber) html += (d.airline ? ' · ' : '') + '<strong>' + esc(d.flightNumber) + '</strong>';
+        html += '</div>';
+      }
+      html += '<div class="travel-card-detail">📅 ' + esc(d.departureDate);
+      if (d.departureTime) html += ' at <strong>' + esc(d.departureTime) + '</strong>';
+      html += '</div>';
+      if (d.airport && d.airport !== 'PDX') html += '<div class="travel-card-detail">🛫 ' + esc(d.airport) + '</div>';
+      if (d.note) html += '<div class="travel-card-note">' + esc(d.note) + '</div>';
+      html += '<button class="travel-del-btn" onclick="deleteDeparture(' + d.id + ')" title="Remove">×</button>';
+      html += '</div>';
+    }
+    container.innerHTML = html;
+  }
+
+  function renderCarpools() {
+    var container = document.getElementById('carpools-list');
+    var items = appData.carpools || [];
+    var html = '';
+    if (items.length === 0) {
+      html = '<div class="travel-empty">No rides offered yet — volunteer to drive!</div>';
+    }
+    for (var i = 0; i < items.length; i++) {
+      var c = items[i];
+      var dirLabel = c.direction === 'dropoff' ? '🛫 Dropoff' : '🛬 Pickup';
+      var dirColor = c.direction === 'dropoff' ? 'var(--rose)' : 'var(--moss)';
+      html += '<div class="travel-card">';
+      html += '<div class="travel-card-name">🚗 ' + esc(c.driverName) + '</div>';
+      html += '<span class="travel-badge" style="background:' + dirColor + '">' + dirLabel + '</span>';
+      if (c.carDescription) html += '<div class="travel-card-detail">' + esc(c.carDescription) + '</div>';
+      html += '<div class="travel-card-detail">📅 ' + esc(c.date);
+      if (c.time) html += ' at <strong>' + esc(c.time) + '</strong>';
+      html += '</div>';
+      if (c.airport && c.airport !== 'PDX') html += '<div class="travel-card-detail">📍 ' + esc(c.airport) + '</div>';
+      html += '<div><span class="carpool-seats">🪑 ' + c.seatsAvailable + ' seat' + (c.seatsAvailable !== 1 ? 's' : '') + ' available</span></div>';
+      if (c.note) html += '<div class="travel-card-note">' + esc(c.note) + '</div>';
+      html += '<button class="travel-del-btn" onclick="deleteCarpool(' + c.id + ')" title="Remove">×</button>';
+      html += '</div>';
+    }
+    container.innerHTML = html;
+  }
+
+  function switchTravels(section, btn) {
+    ['arrivals','departures','carpools'].forEach(function(s) {
+      var el = document.getElementById('travels-' + s);
+      if (el) el.style.display = s === section ? '' : 'none';
+    });
+    document.querySelectorAll('.travels-filter-btn').forEach(function(b) { b.classList.remove('active'); });
+    btn.classList.add('active');
+  }
+
+  // --- TRAVELS CRUD ---
+  async function addArrival() {
+    var name = document.getElementById('arr-name').value.trim();
+    var arrivalDate = document.getElementById('arr-date').value.trim();
+    if (!name || !arrivalDate) { alert('Please enter your name and arrival date.'); return; }
+    try {
+      var res = await apiPost('/travels/arrivals', {
+        name: name,
+        airline: document.getElementById('arr-airline').value.trim() || null,
+        flightNumber: document.getElementById('arr-flight').value.trim() || null,
+        arrivalDate: arrivalDate,
+        arrivalTime: document.getElementById('arr-time').value.trim() || null,
+        airport: document.getElementById('arr-airport').value.trim() || null,
+        note: document.getElementById('arr-note').value.trim() || null,
+      });
+      if (!res.ok) {
+        var detail = res._errorDetail;
+        var msg = (detail && detail.error) ? detail.error : (typeof detail === 'string' ? detail : 'Unknown error');
+        var code = (detail && detail.code) ? ' (code: ' + detail.code + ')' : '';
+        alert('Could not save arrival [HTTP ' + res.status + ']: ' + msg + code);
+        return;
+      }
+      ['arr-name','arr-airline','arr-flight','arr-date','arr-time','arr-airport','arr-note']
+        .forEach(function(id) { document.getElementById(id).value = ''; });
+    } catch (e) {
+      console.error('addArrival network/fetch error:', e);
+      alert('Could not save arrival: ' + (e.message || e));
+    }
+  }
+
+  async function deleteArrival(id) {
+    await apiDelete('/travels/arrivals', { id: id });
+  }
+
+  async function addDeparture() {
+    var name = document.getElementById('dep-name').value.trim();
+    var departureDate = document.getElementById('dep-date').value.trim();
+    if (!name || !departureDate) { alert('Please enter your name and departure date.'); return; }
+    try {
+      var res = await apiPost('/travels/departures', {
+        name: name,
+        airline: document.getElementById('dep-airline').value.trim() || null,
+        flightNumber: document.getElementById('dep-flight').value.trim() || null,
+        departureDate: departureDate,
+        departureTime: document.getElementById('dep-time').value.trim() || null,
+        airport: document.getElementById('dep-airport').value.trim() || null,
+        note: document.getElementById('dep-note').value.trim() || null,
+      });
+      if (!res.ok) {
+        var detail = res._errorDetail;
+        var msg = (detail && detail.error) ? detail.error : (typeof detail === 'string' ? detail : 'Unknown error');
+        var code = (detail && detail.code) ? ' (code: ' + detail.code + ')' : '';
+        alert('Could not save departure [HTTP ' + res.status + ']: ' + msg + code);
+        return;
+      }
+      ['dep-name','dep-airline','dep-flight','dep-date','dep-time','dep-airport','dep-note']
+        .forEach(function(id) { document.getElementById(id).value = ''; });
+    } catch (e) {
+      console.error('addDeparture network/fetch error:', e);
+      alert('Could not save departure: ' + (e.message || e));
+    }
+  }
+
+  async function deleteDeparture(id) {
+    await apiDelete('/travels/departures', { id: id });
+  }
+
+  async function addCarpool() {
+    var driverName = document.getElementById('cp-driver').value.trim();
+    var date = document.getElementById('cp-date').value.trim();
+    if (!driverName || !date) { alert('Please enter your name and the date.'); return; }
+    try {
+      var res = await apiPost('/travels/carpools', {
+        driverName: driverName,
+        carDescription: document.getElementById('cp-car').value.trim() || null,
+        direction: document.getElementById('cp-direction').value,
+        date: date,
+        time: document.getElementById('cp-time').value.trim() || null,
+        seatsAvailable: parseInt(document.getElementById('cp-seats').value) || 4,
+        airport: document.getElementById('cp-airport').value.trim() || null,
+        note: document.getElementById('cp-note').value.trim() || null,
+      });
+      if (!res.ok) {
+        var detail = res._errorDetail;
+        var msg = (detail && detail.error) ? detail.error : (typeof detail === 'string' ? detail : 'Unknown error');
+        var code = (detail && detail.code) ? ' (code: ' + detail.code + ')' : '';
+        alert('Could not save ride offer [HTTP ' + res.status + ']: ' + msg + code);
+        return;
+      }
+      ['cp-driver','cp-car','cp-date','cp-time','cp-note','cp-airport'].forEach(function(id) { document.getElementById(id).value = ''; });
+      document.getElementById('cp-seats').value = '4';
+      document.getElementById('cp-direction').selectedIndex = 0;
+    } catch (e) {
+      console.error('addCarpool network/fetch error:', e);
+      alert('Could not save ride offer: ' + (e.message || e));
+    }
+  }
+
+  async function deleteCarpool(id) {
+    await apiDelete('/travels/carpools', { id: id });
+  }
+
+  // --- INIT ---
+  document.addEventListener('DOMContentLoaded', function() {
+    fetchData();
+    startPolling();
+  });
+</script>
+</body>
+</html>
