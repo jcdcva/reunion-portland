@@ -13,6 +13,13 @@ export default async (req: Request) => {
     return new Response("ok", { status: 201 });
   }
 
+  if (req.method === "PUT") {
+    const { id, wifi, doorCode } = await req.json();
+    if (!id) return new Response("id required", { status: 400 });
+    await db.sql`UPDATE houses SET wifi = ${wifi || null}, door_code = ${doorCode || null} WHERE id = ${parseInt(id)}`;
+    return new Response("ok");
+  }
+
   if (req.method === "DELETE") {
     const url = new URL(req.url);
     const id = url.searchParams.get("id");
@@ -26,5 +33,5 @@ export default async (req: Request) => {
 
 export const config: Config = {
   path: "/api/houses",
-  method: ["POST", "DELETE"],
+  method: ["POST", "PUT", "DELETE"],
 };

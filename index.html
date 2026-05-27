@@ -800,6 +800,62 @@
     padding: 3px 8px;
   }
 
+  .wifi-box {
+    border: 1.5px solid var(--mist);
+    border-radius: 8px;
+    margin: 10px 0 8px;
+    overflow: hidden;
+    background: #f9fbf9;
+  }
+  .wifi-box-header {
+    font-size: 11px;
+    font-family: sans-serif;
+    font-weight: 700;
+    color: var(--moss);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 6px 10px 4px;
+    background: var(--mist);
+  }
+  .wifi-box-content {
+    padding: 8px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .wifi-field {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-family: sans-serif;
+    color: #555;
+  }
+  .wifi-field label {
+    font-weight: 600;
+    min-width: 64px;
+    color: var(--forest);
+  }
+  .wifi-input {
+    flex: 1;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 5px 8px;
+    font-size: 12px;
+    font-family: sans-serif;
+    background: #fff;
+    color: #333;
+    transition: border-color 0.2s;
+  }
+  .wifi-input:focus {
+    outline: none;
+    border-color: var(--forest);
+  }
+  .wifi-input::placeholder {
+    color: #bbb;
+    font-style: italic;
+  }
+
   /* FAMILY GROUPS */
   .family-group { border-top: 1px solid var(--mist); }
   .family-group-header {
@@ -1136,17 +1192,6 @@
       <img src="/houses-map.jpg" alt="Map showing Portland house locations — Blue House, Black House, and White House in the NW Portland / Nob Hill area" style="width:100%;border-radius:12px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,0.10);" />
       <div id="houses-list"></div>
 
-      <!-- ADD A HOUSE -->
-      <div class="places-search-box" style="margin-top:4px">
-        <p style="font-size:11px;font-family:sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--moss);margin-bottom:10px">🏠 Add a House</p>
-        <input type="text" id="new-house-name" class="places-cat-input" placeholder="House name  e.g. The Burnside House" />
-        <input type="text" id="new-house-address" class="places-cat-input" placeholder="Full address" style="margin-top:7px" />
-        <input type="text" id="new-house-capacity" class="places-cat-input" placeholder="Capacity  e.g. Sleeps 6" style="margin-top:7px" />
-        <input type="text" id="new-house-note" class="places-cat-input" placeholder="Note  e.g. Has a hot tub" style="margin-top:7px" />
-        <input type="text" id="new-house-wifi" class="places-cat-input" placeholder="WiFi name (optional)" style="margin-top:7px" />
-        <input type="text" id="new-house-door" class="places-cat-input" placeholder="Door code (optional)" style="margin-top:7px" />
-        <button onclick="addHouse()" style="width:100%;margin-top:10px;background:var(--forest);color:#fff;border:none;border-radius:8px;padding:10px;font-size:14px;font-family:sans-serif;font-weight:700;cursor:pointer">Add House →</button>
-      </div>
     </div>
 
     <!-- SCHEDULE -->
@@ -1488,16 +1533,17 @@
       if (house.capacity) html += '<span class="badge" style="background:' + esc(house.color) + '">' + esc(house.capacity) + '</span>';
       html += '</div></div>';
       if (house.address) html += '<div class="card-sub" style="margin-bottom:4px">' + esc(house.address) + '</div>';
+      if (house.url) html += '<a href="' + esc(house.url) + '" target="_blank" class="map-btn" style="margin-top:4px;margin-bottom:4px">🏠 View Listing</a>';
+      if (mapsUrl) html += '<a href="' + mapsUrl + '" target="_blank" class="map-btn" style="margin-top:4px;margin-bottom:4px">📍 Open in Maps</a>';
+
+      html += '<div class="wifi-box" data-house-id="' + house.id + '">';
+      html += '<div class="wifi-box-header">📶 Wi-Fi Info</div>';
+      html += '<div class="wifi-box-content">';
+      html += '<div class="wifi-field"><label>Network:</label><input type="text" class="wifi-input" data-field="wifi" data-house-id="' + house.id + '" value="' + esc(house.wifi || '') + '" placeholder="Enter Wi-Fi network name" /></div>';
+      html += '<div class="wifi-field"><label>Password:</label><input type="text" class="wifi-input" data-field="doorCode" data-house-id="' + house.id + '" value="' + esc(house.doorCode || '') + '" placeholder="Enter Wi-Fi password" /></div>';
+      html += '</div></div>';
+
       if (house.note) html += '<div class="card-note" style="margin-bottom:6px">' + esc(house.note) + '</div>';
-      if (house.wifi || house.doorCode) {
-        html += '<div class="house-meta-row">';
-        if (house.doorCode) html += '<span class="house-meta-item">🔑 Door code: <strong>' + esc(house.doorCode) + '</strong></span>';
-        if (house.wifi) html += '<span class="house-meta-item">📶 WiFi: <strong>' + esc(house.wifi) + '</strong></span>';
-        html += '</div>';
-      }
-      if (house.url) html += '<a href="' + esc(house.url) + '" target="_blank" class="map-btn" style="margin-top:8px">🏠 View Listing</a>';
-      if (mapsUrl) html += '<a href="' + mapsUrl + '" target="_blank" class="map-btn" style="margin-top:' + (house.url ? '4' : '8') + 'px">📍 Open in Maps</a>';
-      html += '<button class="house-del-btn" onclick="deleteHouse(' + house.id + ')">🗑 Delete House</button>';
       html += '</div>';
 
       html += '<div class="house-guests-label" onclick="toggleGuestList(\'h' + house.id + '\')" style="cursor:pointer;user-select:none">Staying here <span id="h' + house.id + '-toggle-icon">▾</span></div>';
@@ -1544,7 +1590,14 @@
       html += '</div></div>';
       html += '</div>';
     }
+    var focusedWifi = document.activeElement && document.activeElement.classList.contains('wifi-input')
+      ? { houseId: document.activeElement.getAttribute('data-house-id'), field: document.activeElement.getAttribute('data-field'), pos: document.activeElement.selectionStart }
+      : null;
     container.innerHTML = html;
+    if (focusedWifi) {
+      var el = document.querySelector('.wifi-input[data-house-id="' + focusedWifi.houseId + '"][data-field="' + focusedWifi.field + '"]');
+      if (el) { el.focus(); if (focusedWifi.pos != null) try { el.setSelectionRange(focusedWifi.pos, focusedWifi.pos); } catch(_){} }
+    }
   }
 
   // --- SCHEDULE RENDERING ---
@@ -1683,22 +1736,33 @@
   }
 
   // --- CRUD ACTIONS ---
-  async function addHouse() {
-    const name = document.getElementById('new-house-name').value.trim();
-    if (!name) return;
-    const color = HOUSE_COLORS[appData.houses.length % HOUSE_COLORS.length];
-    await apiPost('/houses', {
-      name: name,
-      address: document.getElementById('new-house-address').value.trim() || null,
-      capacity: document.getElementById('new-house-capacity').value.trim() || null,
-      note: document.getElementById('new-house-note').value.trim() || null,
-      wifi: document.getElementById('new-house-wifi').value.trim() || null,
-      doorCode: document.getElementById('new-house-door').value.trim() || null,
-      color: color,
+
+  var wifiSaveTimers = {};
+  async function saveWifi(houseId) {
+    var hid = parseInt(houseId);
+    var wifiInput = document.querySelector('.wifi-input[data-field="wifi"][data-house-id="' + houseId + '"]');
+    var doorInput = document.querySelector('.wifi-input[data-field="doorCode"][data-house-id="' + houseId + '"]');
+    if (!wifiInput || !doorInput) return;
+    var wifiVal = wifiInput.value.trim() || null;
+    var doorVal = doorInput.value.trim() || null;
+    var res = await fetch('/api/houses', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: hid, wifi: wifiVal, doorCode: doorVal }),
     });
-    ['new-house-name','new-house-address','new-house-capacity','new-house-note','new-house-wifi','new-house-door']
-      .forEach(function(id) { document.getElementById(id).value = ''; });
+    if (res.ok && appData) {
+      var h = appData.houses.find(function(x) { return x.id === hid; });
+      if (h) { h.wifi = wifiVal; h.doorCode = doorVal; }
+      dataHash = JSON.stringify(appData);
+    }
   }
+
+  document.addEventListener('input', function(e) {
+    if (!e.target.classList.contains('wifi-input')) return;
+    var houseId = e.target.getAttribute('data-house-id');
+    if (wifiSaveTimers[houseId]) clearTimeout(wifiSaveTimers[houseId]);
+    wifiSaveTimers[houseId] = setTimeout(function() { saveWifi(houseId); }, 800);
+  });
 
   async function deleteHouse(id) {
     if (!confirm('Remove this house and everyone in it?')) return;
