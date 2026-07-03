@@ -650,6 +650,15 @@
   .places-dropdown-item:active { background: var(--mist); }
 
   /* TIPS & INFO */
+  .tips-resource-body {
+    padding: 12px 14px 14px;
+  }
+  .tips-resource-note {
+    font-size: 13px;
+    line-height: 1.5;
+    color: #333;
+    margin-bottom: 10px;
+  }
   .tips-add-box {
     background: #fff;
     border: 2px solid var(--gold);
@@ -1712,6 +1721,15 @@
   function renderTips() {
     const container = document.getElementById('guide-tips');
     let html = '';
+
+    // Matt's Resources — pinned card linking to the downloadable Portland list PDF
+    html += '<div class="tips-block">';
+    html += '<div class="tips-block-header"><span>Matt\'s Resources</span></div>';
+    html += '<div class="tips-resource-body">';
+    html += '<p class="tips-resource-note">Matt\'s full Portland list — activities, food, drinks, and excursions — as a printable PDF.</p>';
+    html += '<div class="card-btns"><a href="/matts-portland-list.pdf" target="_blank" rel="noopener" class="card-btn-web">📄 Open Matt\'s Portland List</a></div>';
+    html += '</div></div>';
+
     html += '<div class="tips-add-box"><p class="tips-add-label">＋ Add a new category</p>';
     html += '<input type="text" id="tips-cat-name" class="places-cat-input" placeholder="Category name  e.g. Parking, Weather, Hospitals" />';
     html += '<button onclick="addTipsCategory()" class="tips-add-cat-btn">Create Category →</button></div>';
