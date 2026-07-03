@@ -1,0 +1,31 @@
+-- Add "Matt's Portland Guide" as a new tips category, pinned to the very top of
+-- the Portland guide's Tips & Info section (sort_order 0, ahead of the existing
+-- categories which start at sort_order 1). Contents come from Matt's Portland
+-- activity list. Roll-forward only — no existing migrations are modified.
+
+WITH cat AS (
+  INSERT INTO tips_categories (name, sort_order)
+  VALUES ('Matt''s Portland Guide', 0)
+  RETURNING id
+)
+INSERT INTO tips_items (category_id, text, sort_order)
+SELECT cat.id, v.text, v.ord
+FROM cat, (VALUES
+  (1, 'Bike Rentals (for the week): Cycle Portland — $247 for a 5-day cruiser e-bike rental (portlandbicycletours.com/rentals/#ebike)'),
+  (2, 'Waterfalls: Columbia River Gorge Falls · Lewis Falls · Ramona Falls · Fairy Falls (Eagle Creek Trail) · Multnomah Falls · Silver Falls · Latourell Falls · Wahclella Falls'),
+  (3, 'Museums: Pittock Mansion · Portland Art Museum · Oregon Rail Heritage Center · Oregon Museum of Science and Industry · World Forestry Center · Next Level Pinball Museum · Oregon Historical Society · Portland Chinatown Museum'),
+  (4, 'Gardens & Parks: Portland Japanese Garden · International Rose Test Garden · Lan Su Chinese Garden · Crystal Springs Rhododendron Garden · Leach Botanical Garden · The Grotto · Forest Park · Mill Ends Park (world''s smallest park) · Cathedral Park · Peter Iredale Shipwreck at Fort Stevens State Park (40 min N of Cannon Beach) · Arrowhead Lavender Farm (Salem — 50 min)'),
+  (5, 'Attractions: Oregon Zoo · Powell''s City of Books · Pearl District (upscale boutiques, art galleries & top-tier dining in converted historic warehouses) · Oregon Aquarium · Hopscotch (interactive exhibit)'),
+  (6, 'Shopping: Matt''s Picks — Next Adventure Outdoor Store, Evo Portland · Veronica''s Picks — Northwestern Needlepoint, Cargo, Hello From Portland, Powell''s, Mugi · Washington Square · Bridgeport Village · Pioneer Place · Boutique districts — Alberta Arts District, Nob Hill/Northwest District, Downtown West End'),
+  (7, 'Coffee & Dessert: Stumptown Coffee Roasters · Coava Coffee Roasters · Tov Coffee · Rose City Coffee · Case Study Coffee Roasters · Salt & Straw · Papa Haydn'),
+  (8, 'Breakfast: Stepping Stone Cafe · Ken''s Artisan Bakery · Besaws · Angels Donuts · Voodoo Donuts'),
+  (9, 'Food & Restaurants: Dolores But You Can Call Me Lolita · Screen Door Eastside · Q Restaurant & Bar · Wanda''s Cafe & Bakery · Southpark Seafood · The Cozy Taberna · The Barn in Sisters · Andina · Departure Restaurant & Lounge (rooftop) · The Deck (on the water) · Fireside (fireplace) · Yardbird · Matador (Mexican) · Roadside Attraction (hot dogs) · Pronto Pup (original corndog) · Tillamook Cheese Factory · Tunnel Beach / Cape Lookout Beach · Depoe Bay (whale watching) · Quinn Head lighthouse · Blue Star Donuts (boozy) · Hawthorne Asylum Food Cart Pods · LaVerne''s (70s theme) · Sunsets (mountain top in Bend, Oregon)'),
+  (10, 'Bars & Speakeasies: Multnomah Whiskey Library · Raven''s Manor · Pope House Bourbon & Lounge · Mox Boarding House (game theme) · Pink Rabbit · Teardrop Lounge · Fools and Horses · Bible Club PDX · The Alibi Tiki Lounge · The Florida Room · Cult Classic Bar (retro) · Pips and Bounce (ping pong) · Birdie Time (mini golf) · Lucid Wild Wine Tasting (Newberg) · Migration Brewing (rooftop) · Tree Beers Tap House (LOTR vibe) · Deschutes Brewery Portland Public House · Breakside Brewery Slabtown · Great Notion Brewing Alberta · Backwoods Brewing Company · Creepy''s · Portal Adventures (cocktail bar) · Vault 31 (retro) · Also: Division, Hawthorne, Kit Kat Club, Scotch Lodge, Hale Pele, Whiskey Library, Eem, Lechon'),
+  (11, 'Distilleries: Oregon Grain Growers Brand Distillery · Koenig Distillery (new, on-farm) · Crater Lake Spirits Tasting Room · Pilot House Distilling · Badlands Artisan Distillery & Bistro · 4 Spirits Distilling'),
+  (12, 'Events & Shows: Helvetia Lavender Festival (Jul 10–12, 30 min) · Vancouver GoFest Pokémon Festival (Jul 11–12, 16 min) · Willamette Valley Lavender Festival & Plein Air Art Show (Jul 12–13, 45 min) · Columbia County Fair & Rodeo (Jul 15–18, 45 min) · Cathedral Park Jazz Festival (Jul 17–19) · Killers of Kill Tony (Jul 11, 7 PM — $80/ticket)'),
+  (13, 'Excursions: Jetboat Cruise – 7 Wonders of the Gorge (3.5 hrs, ~$91/p) · Willamette Jetboat Tour · Full-Day Mt. Hood Wine & Waterfall Tour (8 hrs, ~$139.50) · Waterfalls & Wine Tour — Multnomah Falls, vineyards, Hood River ($250/p) · Willamette Valley Wine Tour · Clackamas River Tubing (~$21/p + shuttle + parking) · Willamette River Kayak Fishing ($250/p) · Draper Girls Country Farm hard cider & berry picking (1 hr) · Electric Bike Tour of Bend & Deschutes River (2.5 hrs, ~$119/p) · Full-Day Guided Oregon Coast Tour (9 hrs, ~$139/p) · Aerial Tram Ride ($8.75/ticket) · ATV Outriders NW Lava Run (2 hrs, ~$374/p) · ATV Octane Adventures High Cascade Scenic Tour (2 hrs, ~$379) · White Wolf Sanctuary Tour ($75/p, 2h44m) · Beginner Glass Blowing Lessons · Yacht Tubs Cruise (2 hrs, $399/boat for 6)'),
+  (14, 'Other Misc. Excursions: Smash Rage Room · Escape Room · Indoor Skydiving · Spirit Mountain Casino · Last Blockbuster Store (3 hrs S) · Le Petit Chef (3D dining experience) · Ground Kontrol (pinball/arcade) · Wooden Shoe Tulip Farm · Exotic car experience · USS Blueback Submarine · Food Cart Bike Tour'),
+  (15, 'Coastal Road Trip — Cannon Beach (1h26m): Sites — Haystack Rock (puffin season 8–11 am), Ecola State Park (tide pools at low tide), Hug Point State Recreation Site, Neahkahnie Mountain, Indian Beach Hike (4 mi), Hemlock Street Shops · Food/Drink — The Wayfarer, Dungeness crab, Driftwood Restaurant/Lounge (bread bowl w/ clam chowder), Mo''s Chowder, Cannon Beach Bakery, Seasons Cafe, Public Coast Brewing Co., Cannon Beach S''mores Company, Insomnia Coffee (Tues–Sat) · Shopping — Love & Hemlock, Beach Soap & Candle, Icefire Glassworks, Four Paws at the Beach · To-Do — beach fire'),
+  (16, 'Coastal Road Trip — Tillamook (58 min S): Tillamook Rock Lighthouse · Tillamook Creamery · Pelican Brewing · de Garde Brewing'),
+  (17, 'Other Coast Trip Ideas: Quinn Head lighthouse (2h27m S) · Crater Lake (4.5 hrs from Portland) · Bend, Oregon')
+) AS v(ord, text);
